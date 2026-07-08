@@ -20,336 +20,14 @@
 <meta name="twitter:image" content="https://ahmadmemos.com/og-image.jpg">
 <script>document.documentElement.className="js";</script>
 <!-- Fallback faces load client-side. Licensed 29LT Zarid Serif & 29LT Bukra take over once placed in ./fonts/ -->
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Hanken+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<style>
-/* =========================================================================
-   مذكرات أحمد · AHMAD MEMOS
-   The first page of a journal, after the film ends.
-   IMAGE SLOTS — replace the placeholder src values with the real files:
-     · Hero      → portrait.jpg        (strongest cinematic portrait)
-     · Note      → portrait-note.jpg   (a natural, quieter portrait)
-     · Frame     → travel.jpg          (one lifestyle / travel frame)
-     · Logo      → logo.svg            (the approved logo — replaces wordmark)
-   No invented film artwork anywhere. The button alone carries "Second Chance".
-   ========================================================================= */
-
-:root{
-  /* Brand palette — IDENTITY VOL.03 */
-  --ink:#1E1E1E; --ink-deep:#141210; --ink-2:#2A241E;
-  --bone:#F4F0E8; --bone-dim:#B8AD9B; --bone-faint:rgba(244,240,232,.55);
-  --brass:#B89A5A; --brass-soft:rgba(184,154,90,.16); --glow:rgba(184,154,90,.08);
-  --leather:#8B6B4A; --forest:#445248;
-  --hairline:rgba(244,240,232,.12); --hairline-2:rgba(244,240,232,.055);
-
-  /* Type — the five OFL faces */
-  --font-display:'Fraunces',Georgia,serif;
-  --font-body:'Hanken Grotesk',system-ui,sans-serif;
-  --font-ar:'Amiri',serif;
-  --font-ar-body:'IBM Plex Sans Arabic',sans-serif;
-  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
-
-  --ease:cubic-bezier(.16,1,.3,1); --slow:1.15s;
-  --pad:clamp(1.5rem,6vw,7rem);
-}
-*,*::before,*::after{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
-body{
-  margin:0; background:var(--ink); color:var(--bone);
-  font-family:var(--font-body); font-weight:300; line-height:1.8; letter-spacing:.01em;
-  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden;
-}
-::selection{ background:var(--brass-soft); color:var(--bone); }
-img{ display:block; max-width:100%; }
-a{ color:inherit; text-decoration:none; }
-
-/* a warm documentary grade applied to every photograph on the page */
-.doc-grade{ filter:grayscale(.12) contrast(1.03) brightness(.9) sepia(.14); }
-
-/* soft film grain */
-.grain{
-  position:fixed; inset:-50%; width:200%; height:200%;
-  pointer-events:none; z-index:9000; opacity:.028; mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grain 8s steps(6) infinite;
-}
-@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-6%,3%)}40%{transform:translate(4%,-5%)}60%{transform:translate(-3%,6%)}80%{transform:translate(5%,2%)}100%{transform:translate(0,0)}}
-
-.eyebrow{ font-size:.7rem; font-weight:400; letter-spacing:.36em; text-transform:uppercase; color:var(--brass); }
-
-/* =========================================================================
-   LOGO — slot. Drop ./logo.svg to use the approved logo (replaces wordmark).
-   ========================================================================= */
-.logo{ display:inline-flex; flex-direction:column; align-items:flex-start; gap:.1em; line-height:1; }
-.logo__img{ max-height:var(--logo-h,52px); width:auto; }
-.logo__type{ display:flex; flex-direction:column; align-items:flex-start; gap:.06em; }
-.logo__ar{ font-family:var(--font-ar-body); font-weight:500; color:var(--bone); direction:rtl; }
-.logo__en{ font-family:var(--font-display); font-weight:300; letter-spacing:.14em; color:var(--bone-faint); text-transform:uppercase; }
-
-
-/* approved symbol — "The Balanced Gesture / اللفتة المتّزنة" */
-.logo__sym{ display:inline-flex; align-items:center; color:var(--bone); }
-.logo__sym svg{ height:calc(var(--logo-h,52px) * .62); width:auto; overflow:visible; }
-.logo__en-b{ font-weight:500; color:var(--leather); }
-.note__photo img{ object-position:60% 38%; }
-
-/* =========================================================================
-   NAV
-   ========================================================================= */
-.nav{
-  position:fixed; inset:0 0 auto 0; z-index:100;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:clamp(.9rem,2.2vw,1.3rem) var(--pad);
-  border-bottom:1px solid transparent;
-  transition:background var(--slow) var(--ease), border-color var(--slow) var(--ease);
-}
-.nav.scrolled{ background:rgba(21,16,10,.62); backdrop-filter:blur(14px) saturate(120%); -webkit-backdrop-filter:blur(14px) saturate(120%); border-bottom-color:var(--hairline-2); }
-.nav .logo{ --logo-h:26px; flex-direction:row; align-items:baseline; gap:.6rem; }
-.nav .logo__type{ flex-direction:row; align-items:baseline; gap:.6rem; }
-.nav .logo__ar{ font-size:1.15rem; }
-.nav .logo__en{ font-size:.66rem; }
-.nav__cta{ font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; color:var(--bone-dim); transition:color .5s var(--ease); }
-.nav__cta:hover,.nav__cta:focus-visible{ color:var(--brass); }
-
-/* =========================================================================
-   HERO
-   ========================================================================= */
-.hero{ position:relative; min-height:100svh; display:flex; align-items:flex-end; padding:7rem var(--pad) clamp(3rem,8vh,5.5rem); overflow:hidden; }
-.hero__media{ position:absolute; inset:0; z-index:0; }
-.hero__media img{
-  width:100%; height:100%; object-fit:cover; object-position:70% 32%;
-  transform:scale(1.06); transform-origin:70% 30%;
-  animation:kenburns 30s var(--ease) infinite alternate; will-change:transform;
-}
-@keyframes kenburns{0%{transform:scale(1.06)}100%{transform:scale(1.13) translate(-1.2%,-1.6%)}}
-.hero__media::after{
-  content:""; position:absolute; inset:0;
-  background:
-    linear-gradient(100deg, rgba(21,16,10,.95) 0%, rgba(21,16,10,.66) 40%, rgba(21,16,10,.14) 72%, rgba(21,16,10,0) 100%),
-    linear-gradient(180deg, rgba(21,16,10,0) 32%, rgba(21,16,10,.5) 76%, var(--ink) 100%);
-}
-.hero__inner{ position:relative; z-index:2; max-width:600px; text-align:left; }
-
-.hero .logo{ --logo-h:104px; margin-bottom:clamp(1.8rem,4.5vh,2.6rem); }
-.hero .logo__ar{ font-size:clamp(2.7rem,9vw,5rem); }
-.hero .logo__en{ font-size:clamp(.7rem,1.6vw,.85rem); margin-top:.5em; }
-
-.hero__open{ margin:0 0 clamp(2.2rem,5.5vh,3rem); }
-.hero__open .ar{ display:block; font-family:var(--font-ar); direction:rtl; font-weight:400; font-size:clamp(1.35rem,3.6vw,2rem); line-height:1.6; color:var(--bone); }
-.hero__open .en{ display:block; font-family:var(--font-display); font-style:italic; font-weight:300; font-size:clamp(.95rem,2vw,1.15rem); line-height:1.5; color:var(--bone-dim); margin-top:.8rem; max-width:42ch; }
-
-/* CTAs */
-.actions{ display:flex; flex-wrap:wrap; gap:.85rem; }
-.btn{
-  display:inline-flex; align-items:center; gap:.75rem;
-  font-family:var(--font-body); font-size:.93rem; letter-spacing:.03em;
-  padding:1rem 1.7rem; border-radius:3px; cursor:pointer;
-  border:1px solid var(--hairline); color:var(--bone); background:rgba(241,233,219,.012);
-  transition:border-color .55s var(--ease), background .55s var(--ease), color .55s var(--ease), transform .55s var(--ease);
-}
-.btn em{ font-family:var(--font-display); font-style:italic; }
-.btn__yt{ width:22px; height:22px; flex:none; }
-.btn__yt svg{ width:100%; height:100%; }
-.btn--primary{ border-color:var(--brass); background:var(--brass); color:var(--ink); }
-.btn--primary .btn__yt{ color:var(--ink); }
-.btn--primary:hover,.btn--primary:focus-visible{ transform:translateY(-2px); background:#d8b97c; border-color:#d8b97c; }
-.btn--ghost .btn__yt{ color:#FF4438; }
-.btn--ghost:hover,.btn--ghost:focus-visible{ border-color:var(--brass); background:var(--brass-soft); }
-
-/* =========================================================================
-   SECTION SHELL  (more air)
-   ========================================================================= */
-.wrap{ padding:clamp(6rem,15vh,11rem) var(--pad); }
-.section-label{ display:flex; align-items:baseline; gap:1rem; margin-bottom:clamp(2.6rem,7vh,4rem); }
-.section-label .ar{ font-family:var(--font-ar); direction:rtl; font-size:clamp(1.7rem,4.5vw,2.4rem); font-weight:400; color:var(--bone); }
-.section-label .en{ font-size:.72rem; letter-spacing:.34em; text-transform:uppercase; color:var(--brass); }
-
-/* =========================================================================
-   START HERE — links as notebook entries
-   ========================================================================= */
-.start{ max-width:620px; }
-.link-row{
-  display:flex; align-items:center; gap:1.2rem;
-  padding:clamp(1.3rem,3.6vw,1.7rem) clamp(.3rem,1.5vw,.8rem);
-  border-top:1px solid var(--hairline); position:relative;
-  transition:padding-inline-start .55s var(--ease);
-}
-.start .link-row:last-child{ border-bottom:1px solid var(--hairline); }
-.link-row::before{ content:""; position:absolute; inset:0 auto 0 0; width:0; background:var(--brass-soft); z-index:-1; transition:width .55s var(--ease); }
-.link-row:hover{ padding-inline-start:clamp(.9rem,2.5vw,1.4rem); }
-.link-row:hover::before{ width:100%; }
-.link-row__icon{ width:24px; height:24px; flex:none; color:var(--bone-dim); transition:color .5s var(--ease); margin-top:.15rem; }
-.link-row:hover .link-row__icon{ color:var(--brass); }
-.link-row__icon svg{ width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.4; }
-.link-row__text{ flex:1; display:flex; flex-direction:column; gap:.18rem; }
-.link-row__plat{ font-size:.64rem; letter-spacing:.26em; text-transform:uppercase; color:var(--brass); }
-.link-row__ar{ font-family:var(--font-ar); direction:rtl; text-align:right; font-size:clamp(1.05rem,2.8vw,1.3rem); color:var(--bone); line-height:1.4; }
-.link-row__en{ font-size:.8rem; color:var(--bone-dim); font-style:italic; font-family:var(--font-display); }
-.link-row__arrow{ color:var(--bone-dim); flex:none; transition:color .5s var(--ease), transform .5s var(--ease); }
-.link-row:hover .link-row__arrow{ color:var(--brass); transform:translateX(5px); }
-
-/* =========================================================================
-   PERSONAL NOTE — a photo laid beside a letter
-   ========================================================================= */
-.note{ position:relative; }
-.note::before{ content:""; position:absolute; top:-6%; left:-8%; width:62%; height:112%; background:radial-gradient(closest-side, var(--glow), transparent 70%); pointer-events:none; }
-.note__grid{ position:relative; display:grid; grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr); gap:clamp(2.4rem,6vw,5rem); align-items:center; max-width:1080px; }
-.note__photo{ position:relative; }
-.note__photo img{ width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:2px; }
-.note__photo figcaption{ margin-top:.9rem; font-size:.66rem; letter-spacing:.22em; text-transform:uppercase; color:var(--bone-dim); }
-.note__body{ }
-.note__ar{ font-family:var(--font-ar); direction:rtl; text-align:right; font-weight:400; font-size:clamp(1.6rem,4.4vw,2.4rem); line-height:1.75; color:var(--bone); margin:0; }
-.note__ar .lead{ color:var(--brass); }
-.note__en{ font-family:var(--font-display); font-style:italic; font-weight:300; font-size:clamp(1.05rem,2.4vw,1.35rem); line-height:1.7; color:var(--bone-dim); margin:clamp(1.6rem,4vh,2.2rem) 0 0; max-width:48ch; }
-.note__sign{ margin-top:clamp(2rem,5vh,2.6rem); font-family:var(--font-ar); direction:rtl; text-align:right; font-size:1.4rem; color:var(--bone); }
-.note__sign .en{ display:block; font-family:var(--font-display); font-style:italic; direction:ltr; text-align:left; font-size:.62em; color:var(--bone-dim); letter-spacing:.05em; margin-top:.3rem; }
-
-/* =========================================================================
-   FRAME — one quiet full-bleed documentary frame (travel / life)
-   ========================================================================= */
-.frame{ position:relative; margin:clamp(1rem,3vh,3rem) 0; overflow:hidden; }
-.frame img{ width:100%; height:clamp(360px,64vh,660px); object-fit:cover; transform:scale(1.04); transform-origin:center; animation:kenburns 34s var(--ease) infinite alternate; }
-.frame::after{ content:""; position:absolute; inset:0; background:radial-gradient(120% 120% at 50% 45%, transparent 55%, rgba(12,8,5,.5) 100%), linear-gradient(180deg, var(--ink), transparent 18%, transparent 82%, var(--ink)); }
-
-
-/* =========================================================================
-   FEATURED FILM — launch highlight
-   ========================================================================= */
-.stream-badge{
-  display:inline-flex; align-items:center; gap:.65rem;
-  font-size:.62rem; letter-spacing:.28em; text-transform:uppercase;
-  color:var(--brass); margin:0 0 1.4rem;
-}
-.stream-badge::before{ content:""; width:32px; height:1px; background:var(--brass); opacity:.75; }
-.featured-film{ position:relative; padding-top:clamp(4.8rem,11vh,8rem); }
-.featured-film::before{
-  content:""; position:absolute; top:0; left:var(--pad); right:var(--pad); height:1px;
-  background:var(--hairline);
-}
-.featured-film__grid{
-  display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
-  gap:clamp(2rem,5vw,4.5rem); align-items:center; max-width:1120px;
-}
-.featured-film__copy{ max-width:560px; }
-.featured-film__kicker{
-  font-size:.68rem; letter-spacing:.32em; text-transform:uppercase; color:var(--brass); margin:0 0 1rem;
-}
-.featured-film__title{
-  font-family:var(--font-ar); direction:rtl; text-align:right; font-weight:400;
-  font-size:clamp(2rem,5.2vw,3.5rem); line-height:1.2; color:var(--bone); margin:0;
-}
-.featured-film__title .en{
-  display:block; direction:ltr; text-align:left; font-family:var(--font-display);
-  font-size:.46em; letter-spacing:.08em; color:var(--bone-dim); margin-top:.3rem;
-}
-.featured-film__desc{
-  font-family:var(--font-display); font-style:italic; font-weight:300;
-  font-size:clamp(1rem,2vw,1.25rem); line-height:1.65; color:var(--bone-dim);
-  margin:1.4rem 0 0; max-width:38ch;
-}
-.featured-film__actions{ margin-top:1.8rem; }
-.featured-film__art{
-  display:block; position:relative; border:1px solid var(--hairline); border-radius:4px;
-  overflow:hidden; background:var(--ink-deep); box-shadow:0 28px 70px rgba(0,0,0,.28);
-  transition:transform .7s var(--ease), border-color .7s var(--ease);
-}
-.featured-film__art:hover,.featured-film__art:focus-visible{ transform:translateY(-3px); border-color:var(--brass); }
-.featured-film__art img{ width:100%; aspect-ratio:16/9; object-fit:cover; }
-.featured-film__art::after{ content:""; position:absolute; inset:0; box-shadow:inset 0 0 0 1px rgba(201,168,106,.08); pointer-events:none; }
-@media (max-width:860px){
-  .featured-film__grid{ grid-template-columns:1fr; }
-  .featured-film__copy{ order:2; }
-  .featured-film__art{ order:1; }
-}
-
-/* =========================================================================
-   CONTACT
-   ========================================================================= */
-.contact{ max-width:620px; }
-.contact__value{ font-family:var(--font-display); font-weight:300; font-size:clamp(1.5rem,4.6vw,2.3rem); display:inline-block; position:relative; letter-spacing:.01em; margin-top:.4rem; }
-.contact__value::after{ content:""; position:absolute; left:0; bottom:-4px; height:1px; width:0; background:var(--brass); transition:width .5s var(--ease); }
-.contact__value:hover::after,.contact__value:focus-visible::after{ width:100%; }
-.contact__note{ font-family:var(--font-ar); direction:rtl; text-align:right; font-size:clamp(1.1rem,2.8vw,1.35rem); color:var(--bone-dim); margin:1.3rem 0 0; }
-.contact__note .en{ display:block; direction:ltr; text-align:left; font-family:var(--font-display); font-style:italic; font-size:.78em; margin-top:.4rem; }
-
-/* =========================================================================
-   FOOTER
-   ========================================================================= */
-.footer{ padding:clamp(5rem,13vh,8rem) var(--pad) clamp(2.4rem,6vh,3.5rem); background:linear-gradient(180deg,var(--ink) 0%,var(--ink-deep) 78%); }
-.footer .logo{ --logo-h:44px; margin-bottom:clamp(2.2rem,6vh,3rem); }
-.footer .logo__ar{ font-size:1.7rem; }
-.footer .logo__en{ font-size:.62rem; margin-top:.4em; }
-.footer__quote{ font-family:var(--font-ar); direction:rtl; text-align:right; font-size:clamp(1.3rem,3.4vw,1.8rem); line-height:1.6; margin:0; max-width:24ch; color:var(--bone); }
-.footer__quote .en{ display:block; direction:ltr; text-align:left; font-family:var(--font-display); font-style:italic; font-size:.62em; color:var(--bone-dim); margin-top:.7rem; }
-.footer__meta{ margin-top:clamp(2.6rem,7vh,3.6rem); font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-dim); }
-
-/* =========================================================================
-   REVEAL + a11y + responsive + reduced motion
-   ========================================================================= */
-.js [data-reveal]{ opacity:0; transform:translateY(22px); transition:opacity var(--slow) var(--ease), transform var(--slow) var(--ease); }
-[data-reveal].in{ opacity:1; transform:none; }
-[data-reveal][data-delay="1"]{ transition-delay:.12s; }
-[data-reveal][data-delay="2"]{ transition-delay:.24s; }
-:focus-visible{ outline:1px solid var(--brass); outline-offset:4px; border-radius:2px; }
-
-@media (max-width:760px){
-  .nav .logo__en{ display:none; }
-  .hero__media img{ object-position:62% 18%; }
-  .hero__media::after{ background:linear-gradient(180deg, rgba(21,16,10,.2) 0%, rgba(21,16,10,.35) 42%, rgba(21,16,10,.82) 74%, var(--ink) 100%); }
-  .actions{ width:100%; }
-  .btn{ flex:1 1 auto; justify-content:center; }
-  .note__grid{ grid-template-columns:1fr; gap:clamp(1.8rem,6vw,2.6rem); }
-  .note__photo img{ aspect-ratio:5/4; }
-}
-@media (prefers-reduced-motion: reduce){
-  *{ animation:none !important; transition:none !important; }
-  [data-reveal]{ opacity:1 !important; transform:none !important; }
-  .hero__media img,.frame img{ transform:scale(1.02); }
-}
-
-/* =========================================================================
-   ARCHIVE NAVIGATION EXTENSIONS — same Ahmad Memos identity
-   ========================================================================= */
-.nav__links{display:flex;align-items:center;gap:clamp(.85rem,2vw,1.55rem);margin-inline-start:auto;margin-inline-end:1.4rem;}
-.nav__link{font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone-dim);transition:color .5s var(--ease);white-space:nowrap;}
-.nav__link:hover,.nav__link:focus-visible{color:var(--brass);}
-.nav__pill{font-size:.52rem;letter-spacing:.18em;color:var(--brass);border:1px solid var(--hairline);border-radius:99px;padding:.18rem .42rem;margin-inline-start:.35rem;vertical-align:middle;}
-.archive-rooms{position:relative;padding-top:clamp(4.8rem,11vh,8rem);}
-.archive-rooms::before{content:"";position:absolute;top:0;left:var(--pad);right:var(--pad);height:1px;background:var(--hairline);}
-.rooms-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;max-width:1120px;}
-.room-card{min-height:250px;border:1px solid var(--hairline);background:linear-gradient(180deg,rgba(241,233,219,.035),rgba(241,233,219,.012));padding:clamp(1.35rem,3vw,2rem);display:flex;flex-direction:column;justify-content:space-between;transition:border-color .55s var(--ease),transform .55s var(--ease),background .55s var(--ease);position:relative;overflow:hidden;}
-.room-card::before{content:"";position:absolute;inset:-20% -30% auto auto;width:70%;height:70%;background:radial-gradient(closest-side,var(--glow),transparent 72%);opacity:.9;pointer-events:none;}
-.room-card:hover,.room-card:focus-visible{border-color:var(--brass);transform:translateY(-3px);background:linear-gradient(180deg,rgba(201,168,106,.08),rgba(241,233,219,.012));}
-.room-card__kicker{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--brass);margin:0 0 1rem;}
-.room-card__title{font-family:var(--font-ar);direction:rtl;text-align:right;font-size:clamp(1.35rem,3vw,1.85rem);font-weight:400;line-height:1.45;margin:0;color:var(--bone);}
-.room-card__title .en{display:block;direction:ltr;text-align:left;font-family:var(--font-display);font-size:.56em;font-style:italic;color:var(--bone-dim);margin-top:.4rem;}
-.room-card__text{font-family:var(--font-display);font-style:italic;color:var(--bone-dim);font-size:.98rem;line-height:1.65;margin:1.2rem 0 0;}
-.room-card__arrow{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--brass);margin-top:2rem;}
-@media(max-width:920px){.rooms-grid{grid-template-columns:1fr}.nav__links{gap:.7rem}.nav__link{font-size:.54rem;letter-spacing:.18em}.nav__cta{display:none}}
-@media(max-width:680px){.nav__links{display:none}.rooms-grid{grid-template-columns:1fr}}
-.page-hero{min-height:58vh;display:flex;align-items:end;padding:clamp(7rem,16vh,10rem) var(--pad) clamp(4rem,10vh,7rem);position:relative;overflow:hidden;}
-.page-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,var(--glow),transparent 34%),linear-gradient(180deg,var(--ink-deep),var(--ink));}
-.page-hero__inner{position:relative;z-index:2;max-width:760px;}
-.page-title{font-family:var(--font-ar);direction:rtl;text-align:right;font-weight:400;font-size:clamp(2.6rem,9vw,5.5rem);line-height:1.1;margin:0;color:var(--bone);}
-.page-title .en{display:block;direction:ltr;text-align:left;font-family:var(--font-display);font-size:.42em;color:var(--bone-dim);font-style:italic;letter-spacing:.04em;margin-top:.45rem;}
-.page-lede{font-family:var(--font-display);font-style:italic;color:var(--bone-dim);font-size:clamp(1.05rem,2.2vw,1.35rem);max-width:56ch;margin:1.5rem 0 0;}
-.page-panel{max-width:980px;border-top:1px solid var(--hairline);padding-top:clamp(2rem,5vh,3.2rem);}
-.page-copy{font-family:var(--font-ar);direction:rtl;text-align:right;font-size:clamp(1.15rem,2.8vw,1.55rem);line-height:1.9;color:var(--bone);}
-.page-copy .en{display:block;direction:ltr;text-align:left;font-family:var(--font-display);font-style:italic;color:var(--bone-dim);font-size:.78em;margin-top:1rem;}
-.archive-list{display:grid;grid-template-columns:1fr;gap:1rem;max-width:920px;}
-.archive-item{border:1px solid var(--hairline);padding:clamp(1.25rem,3vw,2rem);display:grid;grid-template-columns:1fr auto;gap:1.2rem;align-items:center;background:rgba(241,233,219,.014);transition:border-color .5s var(--ease),background .5s var(--ease);}
-.archive-item:hover{border-color:var(--brass);background:var(--brass-soft);}
-.archive-item h2{font-family:var(--font-ar);direction:rtl;text-align:right;font-weight:400;font-size:clamp(1.35rem,3vw,2rem);margin:0;color:var(--bone);}
-.archive-item h2 .en{display:block;direction:ltr;text-align:left;font-family:var(--font-display);font-style:italic;color:var(--bone-dim);font-size:.55em;margin-top:.35rem;}
-.archive-item p{margin:.9rem 0 0;color:var(--bone-dim);font-family:var(--font-display);font-style:italic;line-height:1.65;}
-.archive-item span{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--brass);}
-
-</style>
+<link rel="stylesheet" href="../assets/site.css">
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X7SE8VPJG7"></script>
 <script>
@@ -359,11 +37,10 @@ a{ color:inherit; text-decoration:none; }
   gtag('config', 'G-X7SE8VPJG7');
 </script>
 </head>
-
 <body>
 <div class="grain" aria-hidden="true"></div>
 <nav class="nav" id="nav" aria-label="Primary">
-  <a class="logo" href="/" aria-label="مذكرات أحمد — Ahmad Memos">
+  <a class="logo" href="../index.html" aria-label="مذكرات أحمد — Ahmad Memos">
     <span class="logo__sym" aria-hidden="true"><svg viewBox="0 0 120 90"><path d="M46,84 C43,64 44,46 47,34 C50,24 58,24 68,30 C80,38 95,40 112,30" stroke="currentColor" stroke-width="8" stroke-linecap="round" fill="none"/><circle cx="46" cy="84" r="4" fill="#C2694C"/></svg></span>
     <span class="logo__type">
       <span class="logo__ar" lang="ar" dir="rtl">مذكرات أحمد</span>
@@ -371,32 +48,66 @@ a{ color:inherit; text-decoration:none; }
     </span>
   </a>
   <div class="nav__links" aria-label="Site sections">
-    <a class="nav__link" href="/films/">Films</a>
-    <a class="nav__link" href="/journal/">Journal <span class="nav__pill">Soon</span></a>
-    <a class="nav__link" href="/travels/">Travels</a>
-    <a class="nav__link" href="/about/">About</a>
-    <a class="nav__link" href="/contact/">Contact</a>
+    <a class="nav__link" href="../films/index.html">Films</a>
+    <a class="nav__link" href="../journal/index.html">Journal <span class="nav__pill">Soon</span></a>
+    <a class="nav__link" href="../travels/index.html">Travels</a>
+    <a class="nav__link" href="../about/index.html">About</a>
+    <a class="nav__link" href="../contact/index.html">Contact</a>
   </div>
-  <a class="nav__cta" href="/">الرئيسية</a>
+  <a class="nav__cta" href="../index.html">الرئيسية</a>
 </nav>
-<main id="top">
-  <section class="page-hero">
-    <div class="page-hero__inner" data-reveal>
-      <div class="eyebrow">CONTACT</div>
-      <h1 class="page-title" lang="ar" dir="rtl">التواصل<span class="en">Contact</span></h1>
-      <p class="page-lede">For collaborations, conversations, and meaningful opportunities.</p>
+<main>
+<header class="page-hero">
+  <div class="page-hero__inner">
+    <p class="featured-film__kicker" data-reveal>Contact · Say Hello</p>
+    <h1 class="featured-film__title" lang="ar" dir="rtl" data-reveal data-delay="1">التواصل<span class="en">Contact</span></h1>
+    <p class="featured-film__desc" data-reveal data-delay="2">
+      <span lang="ar" dir="rtl">للحديث، للتعاون، أو فقط لتقول مرحبًا.</span><br>For conversations, collaborations, and meaningful opportunities.
+    </p>
+  </div>
+</header>
+
+<section class="wrap" style="padding-top:0">
+  <div class="contact">
+    <div class="section-label" data-reveal>
+      <span class="ar" lang="ar" dir="rtl">البريد</span>
+      <span class="en">Email</span>
     </div>
-  </section>
-  <section class="wrap" id="start">
-  <div class="archive-list" data-reveal>
-    <a class="archive-item" href="mailto:hello@ahmadmemos.com"><div><h2 lang="ar" dir="rtl">البريد<span class="en">Email</span></h2><p>For thoughtful messages and collaboration inquiries.</p></div><span>Send →</span></a>
-    <a class="archive-item" href="https://youtube.com/@a7mad_3s" target="_blank" rel="noopener noreferrer"><div><h2 lang="ar" dir="rtl">يوتيوب<span class="en">YouTube</span></h2><p>The home of films and long-form stories.</p></div><span>Open →</span></a>
-    <a class="archive-item" href="https://www.linkedin.com/in/ahmad-asseiri-918979b4" target="_blank" rel="noopener noreferrer"><div><h2 lang="ar" dir="rtl">لينكدإن<span class="en">LinkedIn</span></h2><p>Professional notes, projects, and reflections.</p></div><span>Open →</span></a>
+    <a class="contact__value" data-reveal data-delay="1" href="mailto:a.asseiri@gmail.com">a.asseiri@gmail.com</a>
+    <p class="contact__note" lang="ar" dir="rtl" data-reveal data-delay="1">
+      للرسائل المدروسة وفرص التعاون.
+      <span class="en">For thoughtful messages and collaboration inquiries.</span>
+    </p>
+  </div>
+</section>
+
+<section class="wrap" style="padding-top:0">
+  <div class="start" style="max-width:760px">
+    <div class="section-label" data-reveal>
+      <span class="ar" lang="ar" dir="rtl">أو هناك</span>
+      <span class="en">Elsewhere</span>
+    </div>
+    <div>
+      <a class="link-row" data-reveal href="https://youtube.com/@a7mad_3s" target="_blank" rel="noopener noreferrer">
+        <span class="link-row__text">
+          <span class="link-row__plat">YouTube</span>
+          <span class="link-row__ar" lang="ar" dir="rtl">موطن الأفلام والقصص الطويلة</span>
+          <span class="link-row__en">The home of films and long-form stories →</span>
+        </span>
+      </a>
+      <a class="link-row" data-reveal href="https://linkedin.com/in/ahmad-asseiri-918979b4" target="_blank" rel="noopener noreferrer">
+        <span class="link-row__text">
+          <span class="link-row__plat">LinkedIn</span>
+          <span class="link-row__ar" lang="ar" dir="rtl">العمل، المشاريع، والتأملات المهنية</span>
+          <span class="link-row__en">Professional notes, projects, and reflections →</span>
+        </span>
+      </a>
+    </div>
   </div>
 </section>
 </main>
 <footer class="footer">
-  <a class="logo" href="/" data-reveal aria-label="مذكرات أحمد — Ahmad Memos">
+  <a class="logo" href="../index.html" data-reveal aria-label="مذكرات أحمد — Ahmad Memos">
     <span class="logo__sym" aria-hidden="true"><svg viewBox="0 0 120 90"><path d="M46,84 C43,64 44,46 47,34 C50,24 58,24 68,30 C80,38 95,40 112,30" stroke="currentColor" stroke-width="8" stroke-linecap="round" fill="none"/><circle cx="46" cy="84" r="4" fill="#C2694C"/></svg></span>
     <span class="logo__type">
       <span class="logo__ar" lang="ar" dir="rtl">مذكرات أحمد</span>
@@ -407,23 +118,17 @@ a{ color:inherit; text-decoration:none; }
     ليست يوميّات مثاليّة… لكنها صادقة.
     <span class="en">This isn’t a perfect vlog. It’s an honest one.</span>
   </p>
+  <nav class="footer__nav" aria-label="Footer" data-reveal data-delay="1">
+    <a href="../films/index.html">Films · الأفلام</a>
+    <a href="../travels/index.html">Travels · الرحلات</a>
+    <a href="../journal/index.html">Journal · المذكّرات</a>
+    <a href="../about/index.html">About · عنّي</a>
+    <a href="../contact/index.html">Contact · تواصل</a>
+  </nav>
+  <p class="footer__line" data-reveal data-delay="2">A life being lived. A life being documented.</p>
   <div class="footer__meta" data-reveal data-delay="2">© <span id="year"></span> مذكرات أحمد · Ahmad Memos</div>
 </footer>
-<script>
-(function(){
-  "use strict";
-  var y=document.getElementById("year"); if(y) y.textContent=new Date().getFullYear();
-  var nav=document.getElementById("nav");
-  var onScroll=function(){ if(nav) nav.classList.toggle("scrolled", window.scrollY>40); };
-  onScroll(); window.addEventListener("scroll", onScroll, {passive:true});
-  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-    var els=[].slice.call(document.querySelectorAll("[data-reveal]"));
-    var io=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("in");io.unobserve(entry.target);}});},{threshold:.12,rootMargin:"0px 0px -8% 0px"});
-    els.forEach(function(el){io.observe(el);});
-  } else {
-    document.querySelectorAll("[data-reveal]").forEach(function(el){el.classList.add("in");});
-  }
-})();
-</script>
+<script>document.documentElement.className="js";</script>
+<script src="../assets/site.js" defer></script>
 </body>
 </html>

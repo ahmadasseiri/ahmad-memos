@@ -23,3 +23,27 @@ Deployed via GitHub → Cloudflare Pages (automatic). Custom domain: ahmadmemos.
 - **The Balanced Gesture symbol** in the logo lockup conflicts with Vol.03's "add no symbol — the name carries the identity." Kept as-is; remove the `.logo__sym` span if Vol.03 is final on this.
 - Paper white: site uses `#F4F0E8` (Vol.03). Earlier boards used `#F1E9DB`. Change the `--bone` value if you prefer the warmer bone.
 - Full RTL layout (`dir="rtl"` at root) is a deliberate redesign step, left for a dedicated pass.
+
+
+## V6 — Living-archive evolution (this build)
+
+**Audit performed first (homepage = single source of truth).** Findings: tokens/CSS were already unified across pages; nav/footer diffs were URL-only; the real inconsistency was *depth* — subpages were thin shells (~200–400 chars) that broke the cinematic continuity, and the 22KB CSS was duplicated inline in all 8 files (the mechanism by which drift happens).
+
+**Unified design system**
+- All shared CSS extracted to `assets/site.css` (single source of truth) + a V6 extension layer built strictly from existing tokens (hairlines, brass kickers, Amiri voice, reveal rhythm). All behavior unified in `assets/site.js`.
+- Every page now: −22KB, cached once, impossible to drift.
+
+**Homepage — cinematic narrative (hero untouched)**
+- Emotional line added before the main CTA (per direction).
+- New sections in the arc Arrival→Action: Featured Documentary (refined copy) → Latest Journey → Latest Journal (editorial statement) → Selected Frames (Leica-rhythm gallery from real photographs) → Start-here → About note → Contact.
+- Footer upgraded: minimal nav + "A life being lived. A life being documented."
+
+**Pages rebuilt from the homepage language (all real copy preserved)**
+- **Films**: chapters of the archive — Chapter 01 · Second Chance, elegant next-chapters note.
+- **Second Chance**: meta strip, film still, essay, "before you press play" moment.
+- **Journal**: editorial coming-soon (large Amiri statement, honest note kept).
+- **Travels**: documentary-journeys intro, Journey 01 (being documented), anatomy of a journey (overview/timeline/places/reflections/gallery/related).
+- **About**: philosophy page — the official line, four principles of the archive.
+- **Contact / 404**: same language, minimal.
+
+**Seamless navigation**: soft page fade transitions (reduced-motion respected). New assets: `assets/frame-01..03.jpg` (cinematic crops of existing photographs — no generated imagery).
